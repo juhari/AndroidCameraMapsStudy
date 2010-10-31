@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Hello World, CameraMapsTest!</string>
+    <string name="app_name">Camera and Maps test</string>
+<string name="Camera">Take Picture</string>
+<string name="Maps">Show maps</string>
+</resources>
