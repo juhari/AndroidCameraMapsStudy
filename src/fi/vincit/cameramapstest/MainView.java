@@ -5,6 +5,7 @@ import java.util.HashMap;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -16,6 +17,7 @@ public class MainView extends Activity implements OnClickListener {
 	/** called when created */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
+		Log.i("CameraMapsTest", "MainView::onCreate()");
 		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.mainview);
@@ -28,7 +30,7 @@ public class MainView extends Activity implements OnClickListener {
 		
 		Button button = (Button) findViewById(R.id.CameraButton);
 		button.setOnClickListener(this);
-		mButtonMap.put(button, new Intent(MainView.this, MapsView.class));
+		mButtonMap.put(button, new Intent(MainView.this, CameraView.class));
 	}	
 
 	@Override
