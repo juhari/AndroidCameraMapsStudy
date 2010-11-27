@@ -2,23 +2,18 @@
 <LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="fill_parent"
-  android:layout_height="fill_parent">
-	<TableLayout 
-		android:id="@+id/TableLayout01" 
+  android:layout_height="fill_parent" android:orientation="vertical">
+	<Button 
+		android:text="@string/Camera" 
+		android:id="@+id/CameraButton" 
 		android:layout_width="fill_parent" 
-		android:layout_height="fill_parent">
-		<Button 
-			android:text="@string/Camera" 
-			android:id="@+id/CameraButton" 
-			android:layout_width="wrap_content" 
-			android:layout_height="wrap_content" android:clickable="true">
-		</Button>
-		<Button 
-			android:text="@string/Maps" 
-			android:id="@+id/MapsButton" 
-			android:layout_width="wrap_content" 
-			android:layout_height="wrap_content" 
-			android:clickable="true">
-		</Button>
-	</TableLayout>
+		android:layout_height="wrap_content" android:clickable="true">
+	</Button>
+	<Button 
+		android:text="@string/Maps" 
+		android:id="@+id/MapsButton" 
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content" 
+		android:clickable="true">
+	</Button>
 </LinearLayout>
