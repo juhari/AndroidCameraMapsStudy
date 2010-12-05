@@ -24,7 +24,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-import fi.vincit.cameramapstest.DemoMediaScannerClient;
+import com.google.android.maps.GeoPoint;
 
 public class CameraView extends Activity
 						implements SurfaceHolder.Callback 
@@ -37,6 +37,10 @@ public class CameraView extends Activity
 	private SurfaceHolder mHolder = null;
 	private DemoMediaScannerClient mScanner = null;
 	private boolean mPreviewRunning = false;
+	private DataBaseConnection mDataBase = null;
+	
+	private static double TESTLAT = 61.446694;
+    private static double TESTLON = 23.857316;
 	
 	public CameraView() {
 		// TODO Auto-generated constructor stub
@@ -49,6 +53,9 @@ public class CameraView extends Activity
         super.onCreate(savedInstanceState);            	
         
         Log.i("CameraMapsTest", "CameraView::onCreate(): get surface");
+        
+        mDataBase = new DataBaseConnection(this.getBaseContext());
+        mDataBase.open();
         
         mScanner = new DemoMediaScannerClient(this.getBaseContext());
         
@@ -68,7 +75,13 @@ public class CameraView extends Activity
         captureButton.setOnClickListener(this);
         
         Log.i("CameraMapsTest", "CameraView::onCreate() -->");
-    }       
+    }    
+    
+    @Override
+    public void onDestroy() {
+    	mDataBase.close();
+    	super.onDestroy();
+    }
     
     private Size getOptimalPreviewSize(List<Size> sizes, int w, int h) {
         final double ASPECT_TOLERANCE = 0.05;
@@ -191,6 +204,9 @@ public class CameraView extends Activity
 			Log.i("CameraMapsTest", "CameraView::onPictureTaken(), bitmap created: " + picture.getWidth() + ":" + picture.getHeight());
 			File stored = savePictureToMemCard(data);
 			
+			GeoPoint point = new GeoPoint((int)(TESTLAT*(float)1e6),(int)(TESTLON*(float)1e6));
+			mDataBase.createLocationPhoto(stored.toString(), point);
+			
 			printExifData(stored);
 			
 			mScanner.updateMediaScanner(stored.toString());
@@ -283,8 +299,8 @@ public class CameraView extends Activity
 	        parameters.setPictureFormat(PixelFormat.JPEG);
 	        
 	        parameters.removeGpsData();
-	        parameters.setGpsLatitude(61.446694);
-	        parameters.setGpsLongitude(23.857316);
+	        parameters.setGpsLatitude(TESTLAT);
+	        parameters.setGpsLongitude(TESTLON);
 	        parameters.setGpsAltitude(144);
 	        parameters.setGpsTimestamp(System.currentTimeMillis());
 	        

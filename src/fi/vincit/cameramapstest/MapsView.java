@@ -1,11 +1,16 @@
 package fi.vincit.cameramapstest;
 
+import java.util.List;
+
+import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
 import com.google.android.maps.MyLocationOverlay;
+import com.google.android.maps.Overlay;
 
 public class MapsView extends MapActivity {
 	
@@ -25,15 +30,26 @@ public class MapsView extends MapActivity {
         setContentView(R.layout.mapsview);
         
         mMapView = (MapView) findViewById(R.id.mapview);
-        mMapController = mMapView.getController();
-        
-        initMyLocation();
+        mMapController = mMapView.getController();              
         
         mMapView.setBuiltInZoomControls(true);
         mMapView.setSatellite(true);
         mMapView.setEnabled(true);
         mMapView.setClickable(true);
-               
+                       
+        initOverlays();
+    }
+    
+    private void initOverlays() {
+    	initMyLocation();
+    	initPictureOverlays();
+    }
+    
+    private void initPictureOverlays() {
+    	List<Overlay> mapOverlays = mMapView.getOverlays();
+    	Drawable drawable = this.getResources().getDrawable(R.drawable.icon);
+    	LocationPhotoOverlay overlay = new LocationPhotoOverlay(drawable, (Context)this);
+    	mapOverlays.add(overlay);
     }
     
     private void initMyLocation() {    	
