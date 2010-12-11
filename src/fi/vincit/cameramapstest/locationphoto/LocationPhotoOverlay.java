@@ -1,4 +1,4 @@
-package fi.vincit.cameramapstest;
+package fi.vincit.cameramapstest.locationphoto;
 
 import java.util.ArrayList;
 
@@ -11,19 +11,16 @@ import android.util.Log;
 
 import com.google.android.maps.ItemizedOverlay;
 
+import fi.vincit.cameramapstest.DataBaseConnection;
+
 public class LocationPhotoOverlay extends ItemizedOverlay<LocationPicture> {
 	
 	private Context mContext;
-	private DataBaseConnection mDatabase;
 	private ArrayList<LocationPicture> mOverlays = new ArrayList<LocationPicture>();
 	
 	public LocationPhotoOverlay(Drawable defaultMarker, Context context) {
 		super(boundCenterBottom(defaultMarker));
-		mContext = context;
-		
-		mDatabase = new DataBaseConnection(mContext);
-		// TODO when to close the db?
-		mDatabase.open();
+		mContext = context;		
 		
 		scanDataBase();
 	}
@@ -35,7 +32,7 @@ public class LocationPhotoOverlay extends ItemizedOverlay<LocationPicture> {
 
 	private void scanDataBase() {
 		Log.i("CameraMapsTest", "scanDataBase <--");
-		Cursor cursor = mDatabase.fetchAllLocationPhotos();
+		Cursor cursor = DataBaseConnection.fetchAllLocationPhotos();
 		Log.i("CameraMapsTest", "db columns: " + cursor.getColumnName(0));
 		Log.i("CameraMapsTest", "db columns: " + cursor.getColumnName(1));
 		Log.i("CameraMapsTest", "db columns: " + cursor.getColumnName(2));
@@ -45,7 +42,8 @@ public class LocationPhotoOverlay extends ItemizedOverlay<LocationPicture> {
 		Log.i("CameraMapsTest", "scanDataBase, items found: " + cursor.getCount());
 		
 		while( !cursor.isAfterLast() ) {
-			addLocationPicture(new LocationPicture(mDatabase.getRowGeoPoint(cursor), mDatabase.getRowFilename(cursor)));
+			addLocationPicture(new LocationPicture(DataBaseConnection.getRowGeoPoint(cursor), 
+												   DataBaseConnection.getRowFilename(cursor)));
 			cursor.moveToNext();
 		}
 		

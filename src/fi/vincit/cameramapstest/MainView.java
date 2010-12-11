@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import fi.vincit.cameramapstest.camera.CameraView;
+import fi.vincit.cameramapstest.maps.MapsView;
 
 public class MainView extends Activity implements OnClickListener {
 	
@@ -20,19 +22,33 @@ public class MainView extends Activity implements OnClickListener {
 		Log.i("CameraMapsTest", "MainView::onCreate()");
 		super.onCreate(savedInstanceState);
 		
+		DataBaseConnection.open(getApplicationContext());
+		DemoMediaScannerClientFactory.createInstance(getApplicationContext());		
+		
 		setContentView(R.layout.mainview);
 		
 		mButtonMap = new HashMap<View, Intent> ();
 		
-		Button mapsButton = (Button) findViewById(R.id.MapsButton);
-		mapsButton.setOnClickListener(this);
-		mButtonMap.put(mapsButton, new Intent(MainView.this, MapsView.class));
+		Button mapButton = createButtonByViewId(R.id.MapsButton);
+		mButtonMap.put(mapButton, new Intent(MainView.this, MapsView.class));
 		
-		Button button = (Button) findViewById(R.id.CameraButton);
-		button.setOnClickListener(this);
-		mButtonMap.put(button, new Intent(MainView.this, CameraView.class));
+		mapButton = createButtonByViewId(R.id.CameraButton);
+		mButtonMap.put(mapButton, new Intent(MainView.this, CameraView.class));
 	}	
-
+	
+	private Button createButtonByViewId(int id) {
+		Button button = (Button) findViewById(id);
+		button.setOnClickListener(this);
+		return button;
+	}
+	
+	@Override
+	public void onDestroy() {
+		DataBaseConnection.close();
+		DemoMediaScannerClientFactory.getInstance().disconnect();	
+		super.onDestroy();			
+	}
+	
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub

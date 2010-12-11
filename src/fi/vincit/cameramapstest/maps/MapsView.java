@@ -1,4 +1,4 @@
-package fi.vincit.cameramapstest;
+package fi.vincit.cameramapstest.maps;
 
 import java.util.List;
 
@@ -11,6 +11,9 @@ import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
 import com.google.android.maps.MyLocationOverlay;
 import com.google.android.maps.Overlay;
+
+import fi.vincit.cameramapstest.R;
+import fi.vincit.cameramapstest.locationphoto.LocationPhotoOverlay;
 
 public class MapsView extends MapActivity {
 	

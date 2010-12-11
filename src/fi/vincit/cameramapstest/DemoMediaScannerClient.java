@@ -10,10 +10,11 @@ public class DemoMediaScannerClient implements MediaScannerConnectionClient {
 
 	MediaScannerConnection mConnection = null;
 	private boolean mScannerConnected = false;
-	private boolean mScanCompleted = false;
+	private boolean mScanCompleted = false;	
 	
 	public DemoMediaScannerClient(Context context) {
 		mConnection = new MediaScannerConnection(context, this);
+		Log.i("CameraMapsTest", "Connect to MediaScannerConnection");
 		mConnection.connect();
 	}
 	
@@ -21,6 +22,10 @@ public class DemoMediaScannerClient implements MediaScannerConnectionClient {
 	public void onMediaScannerConnected() {
 		// TODO Auto-generated method stub
 		mScannerConnected = true;
+	}
+	
+	public void disconnect() {
+		mConnection.disconnect();
 	}
 
 	@Override

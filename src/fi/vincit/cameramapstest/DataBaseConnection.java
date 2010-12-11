@@ -1,8 +1,6 @@
 package fi.vincit.cameramapstest;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -24,29 +22,29 @@ public class DataBaseConnection {
    private static final String TABLE_LOCATION_PHOTO = "locationphoto";
    
    
-   private final Context mCtx;
-   private DatabaseHelper mDbHelper;
-   private SQLiteDatabase mDb;
+   private static Context mCtx = null;
+   private static DatabaseHelper mDbHelper = null;
+   private static SQLiteDatabase mDb = null;   
    
-   DataBaseConnection (Context ctx) {
-	    this.mCtx = ctx;
-	}
+   private static boolean mOpen = false;
    
-	public boolean open() {
-	    mDbHelper = new DatabaseHelper(mCtx);
-	    try {
+	public static void open(Context ctx) throws SQLException {		
+		if( !mOpen )
+		{
+			mCtx = ctx;		
+		    mDbHelper = new DatabaseHelper(mCtx);
 	    	mDb = mDbHelper.getWritableDatabase();
-	    	return true;
-	    }
-	    catch (SQLException e){
-	    	Log.i("CameraMapsTest", "Error opening database");
-	    	return false;
-	    }
-
+	    	mOpen = true; 
+		}
 	}
 	
-	public void close() {
+	public static boolean isOpen() {
+		return mOpen;
+	}
+	
+	public static void close() {
 	    mDbHelper.close();
+	    mOpen = false;
 	}
    
 	private static class DatabaseHelper extends SQLiteOpenHelper {
@@ -70,7 +68,7 @@ public class DataBaseConnection {
         }
     }
 	   
-    public long createLocationPhoto(String filename, GeoPoint location) {
+    public static long createLocationPhoto(String filename, GeoPoint location) {
     	Log.i("CameraMapsTest", "creating location photo to: " + location);
         ContentValues values = new ContentValues();
         values.put("filename", filename);
@@ -82,17 +80,17 @@ public class DataBaseConnection {
         return mDb.insert(TABLE_LOCATION_PHOTO, null, values);
     }	     
     
-    public Cursor fetchAllLocationPhotos(){
+    public static Cursor fetchAllLocationPhotos(){
     	return mDb.query(TABLE_LOCATION_PHOTO, new String[] {"_id", "filename", "time", "lat", "lon"},  null, null, null, null, null);
     }   
     
-    public GeoPoint getRowGeoPoint(Cursor cursor) {	
+    public static GeoPoint getRowGeoPoint(Cursor cursor) {	
     	int lat = cursor.getInt(3);
     	int lon = cursor.getInt(4);
     	return new GeoPoint(lat, lon);
     }
     
-    public String getRowFilename(Cursor cursor) {
+    public static String getRowFilename(Cursor cursor) {
     	return cursor.getString(1);
     }
 }

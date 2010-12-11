@@ -10,10 +10,10 @@
 		android:layout_width="fill_parent" 
 		android:layout_height="wrap_content" android:clickable="true">
 	</Button>
-	<fi.vincit.cameramapstest.CameraSurface
+	<fi.vincit.cameramapstest.camera.CameraSurface
 	  xmlns:android="http://schemas.android.com/apk/res/android"
 	  android:id="@+id/camerasurface"
 	  android:layout_width="wrap_content"
 	  android:layout_height="wrap_content">
-	</fi.vincit.cameramapstest.CameraSurface>	
+	</fi.vincit.cameramapstest.camera.CameraSurface>	
 </LinearLayout>

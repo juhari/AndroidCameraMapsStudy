@@ -1,4 +1,4 @@
-package fi.vincit.cameramapstest;
+package fi.vincit.cameramapstest.maps;
 
 import java.util.ArrayList;
 

@@ -1,6 +1,5 @@
-package fi.vincit.cameramapstest;
+package fi.vincit.cameramapstest.locationphoto;
 
-import android.graphics.drawable.BitmapDrawable;
 import android.util.Log;
 
 import com.google.android.maps.GeoPoint;
