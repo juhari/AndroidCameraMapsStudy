@@ -11,8 +11,11 @@ public class DemoMediaScannerClientFactory {
 		{
 			connection = new DemoMediaScannerClient(ctx);
 		}
+		connection.connect();
 		return connection;
 	}
+	
+	
 	
 	public static DemoMediaScannerClient getInstance() {
 		return connection;

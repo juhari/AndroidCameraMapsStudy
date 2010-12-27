@@ -84,6 +84,11 @@ public class DataBaseConnection {
     	return mDb.query(TABLE_LOCATION_PHOTO, new String[] {"_id", "filename", "time", "lat", "lon"},  null, null, null, null, null);
     }   
     
+    public static void removeFromDb(Cursor cursor) {
+    	int amountDeleted = mDb.delete(TABLE_LOCATION_PHOTO, ""+cursor.getPosition(), null);
+    	Log.i("CameraMapsTest", "Deleted " + amountDeleted + " rows from db.");
+    }
+    
     public static GeoPoint getRowGeoPoint(Cursor cursor) {	
     	int lat = cursor.getInt(3);
     	int lon = cursor.getInt(4);

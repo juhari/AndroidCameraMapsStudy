@@ -24,6 +24,10 @@ public class DemoMediaScannerClient implements MediaScannerConnectionClient {
 		mScannerConnected = true;
 	}
 	
+	public void connect() {
+		mConnection.connect();
+	}
+	
 	public void disconnect() {
 		mConnection.disconnect();
 	}

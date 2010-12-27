@@ -24,7 +24,7 @@ public class MainView extends Activity implements OnClickListener {
 		
 		DataBaseConnection.open(getApplicationContext());
 		DemoMediaScannerClientFactory.createInstance(getApplicationContext());		
-		
+				
 		setContentView(R.layout.mainview);
 		
 		mButtonMap = new HashMap<View, Intent> ();

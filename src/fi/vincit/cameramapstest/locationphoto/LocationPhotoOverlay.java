@@ -1,5 +1,6 @@
 package fi.vincit.cameramapstest.locationphoto;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 import android.app.AlertDialog;
@@ -22,7 +23,8 @@ public class LocationPhotoOverlay extends ItemizedOverlay<LocationPicture> {
 		super(boundCenterBottom(defaultMarker));
 		mContext = context;		
 		
-		scanDataBase();
+		scanDataBase();		
+		populate();
 	}
 	
 	public void addLocationPicture(LocationPicture picture) {
@@ -42,8 +44,15 @@ public class LocationPhotoOverlay extends ItemizedOverlay<LocationPicture> {
 		Log.i("CameraMapsTest", "scanDataBase, items found: " + cursor.getCount());
 		
 		while( !cursor.isAfterLast() ) {
-			addLocationPicture(new LocationPicture(DataBaseConnection.getRowGeoPoint(cursor), 
-												   DataBaseConnection.getRowFilename(cursor)));
+			LocationPicture pic = null;
+			pic = LocationPicture.createLocationPicture(DataBaseConnection.getRowGeoPoint(cursor), 
+					DataBaseConnection.getRowFilename(cursor));		
+			if( pic != null ){
+				addLocationPicture(pic);
+			}
+			else {
+				DataBaseConnection.removeFromDb(cursor);
+			}
 			cursor.moveToNext();
 		}
 		
