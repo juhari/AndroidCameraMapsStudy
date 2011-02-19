@@ -17,7 +17,7 @@ public class CameraCallbackListener implements ShutterCallback
 		mFileHandler = new LocationPhotoFileHandler(storeCallback);
 	}
 
-	@Override
+	//@Override
 	public void onPictureTaken(byte[] data, Camera camera) {
 		if( data != null) {
 			Log.i("CameraMapsTest", "CameraView::onPictureTaken(), data length: " + data.length);
@@ -36,7 +36,7 @@ public class CameraCallbackListener implements ShutterCallback
 		Log.i("CameraMapsTest", "CameraView::onPictureTaken(), bitmap created: " + picture.getWidth() + ":" + picture.getHeight());
 	}
 
-	@Override
+	//@Override
 	public void onShutter() {
 		// TODO Auto-generated method stub
 		

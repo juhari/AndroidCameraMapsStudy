@@ -63,7 +63,7 @@ public class CameraView extends Activity
     	finish();
     }
 
-	@Override
+	//@Override
 	public void onClick(View view) {
 		// TODO Auto-generated method stub
 		if(view.getId() == R.id.CaptureButton )

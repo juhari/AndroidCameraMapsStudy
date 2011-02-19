@@ -18,7 +18,7 @@ public class DemoMediaScannerClient implements MediaScannerConnectionClient {
 		mConnection.connect();
 	}
 	
-	@Override
+	//@Override
 	public void onMediaScannerConnected() {
 		// TODO Auto-generated method stub
 		mScannerConnected = true;
@@ -32,7 +32,7 @@ public class DemoMediaScannerClient implements MediaScannerConnectionClient {
 		mConnection.disconnect();
 	}
 
-	@Override
+	//@Override
 	public void onScanCompleted(String path, Uri uri) {
 		// TODO Auto-generated method stub
 		Log.i("CameraMapsTest", "onScanCompleted(): msc.scanFile() path = "

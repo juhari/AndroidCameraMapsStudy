@@ -81,7 +81,7 @@ public class CameraSurface extends SurfaceView
         return optimalSize;
     }
     
-	@Override
+	//@Override
 	public void surfaceChanged(SurfaceHolder holder, int format, int w, int h) {
 		// Now that the size is known, set up the camera parameters and begin
         // the preview.
@@ -130,12 +130,12 @@ public class CameraSurface extends SurfaceView
         parameters.setGpsTimestamp(System.currentTimeMillis());
 	}
 
-	@Override
+	//@Override
 	public void surfaceCreated(SurfaceHolder arg0) {
 		Log.i("CameraMapsTest", "CameraView::surfaceCreated()");        
 	}
 
-	@Override
+	//@Override
 	public void surfaceDestroyed(SurfaceHolder arg0) {
 		Log.i("CameraMapsTest", "CameraView::surfaceDestroyed()");		
 		// Surface will be destroyed when we return, so stop the preview.
